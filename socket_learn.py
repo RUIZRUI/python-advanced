@@ -42,3 +42,31 @@
 
 print('装逼呢，别在意')
 print('愉快的开始学习socket吧！')
+
+
+
+
+
+# 服务端结构
+'''
+tcps = socket()
+tcps.bind()
+tcps.listen()
+while True:
+    tcpc = tcps.accept()    # 接收客户端连接
+    while True:
+        tcpc.recv() / tcpc.send()   # 对话（接收或发送）
+    tcpc.close()    # 关闭客户端套接字
+tcps.close()    # 关闭服务器端套接字（可选）
+'''
+
+
+
+# 客户端结构
+'''
+tcpc = socket()
+tcpc.connect()
+while True:
+    tcpc.send() / tcpc.recv()   # 对话（发送或接收）
+tcpc.close()
+'''
