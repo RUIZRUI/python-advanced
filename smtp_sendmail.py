@@ -10,6 +10,10 @@
 # msg: 发送的消息，字符串，注意格式
 
 
+'''
+    使用第三方邮件服务器 smtp.163.com 发送纯文本邮件
+'''
+
 import smtplib
 from email.mime.text import MIMEText
 from email.header import Header
@@ -27,24 +31,27 @@ receivers = ['2510591928@qq.com']   # 接收者列表
 
 # MIMEText(文本内容, 文本格式, 编码) 
 message = MIMEText('Python 邮件发送中 ...', 'plain', 'utf-8')
-message['From'] = Header('zhengxiang4056@163.com', 'utf-8')      # 发送者
-message['To'] = Header('2510591928@qq.com', 'utf-8')          # 接收者
+# message['From'] = Header('zhengxiang4056@163.com', 'utf-8')      # 发送者
+# message['To'] = Header('2510591928@qq.com', 'utf-8')          # 接收者
+message['From'] = 'qixqi<zhengxiang4056@163.com>'
+message['To'] = '2510591928@qq.com'
+
 
 subject = 'Python SMTP 邮件'
 message['Subject'] = Header(subject, 'utf-8')
 
 
-# try:
+try:
     # smtpObj = smtplib.SMTP('localhost')
     # smtpObj.sendmail(sender, receivers, message.as_string())
     # print('邮件发送成功')
 
     # 使用第三方 SMTP 服务
-smtpObj = smtplib.SMTP()
-smtpObj.connect(mail_host, 25)      # SMTP 端口号
-smtpObj.login(mail_user, mail_pass)
-smtpObj.sendmail(sender, receivers, message.as_string())
-smtpObj.close()
-print('邮件发送成功')
-# except smtplib.SMTPException:
-    # print('Error: 无法发送邮件')
+    smtpObj = smtplib.SMTP()
+    smtpObj.connect(mail_host, 25)      # SMTP 端口号
+    smtpObj.login(mail_user, mail_pass)
+    smtpObj.sendmail(sender, receivers, message.as_string())
+    smtpObj.close()
+    print('邮件发送成功')
+except smtplib.SMTPException:
+    print('Error: 无法发送邮件')
