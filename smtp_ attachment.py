@@ -5,6 +5,7 @@
 '''
 import smtplib
 from email.mime.text import MIMEText
+from email.mime.application import MIMEApplication
 from email.mime.multipart import MIMEMultipart
 from email.header import Header
 
@@ -27,6 +28,14 @@ message['Subject'] = Header(subject, 'utf-8')
 # 邮件正文
 message.attach(MIMEText('这是qixqi Python 邮件发送测试 ...', 'plain', 'utf-8'))
 
+
+
+'''
+    MIMEText 会将文件内容转换为文本发送出去
+    MIMEApplication 传输真正的附件
+'''
+
+
 # 构造附件1，传送当前目录下的 smtp_attachment1.txt文件
 attach1 = MIMEText(open('smtp_attachment1.txt', 'rb').read(), 'base64', 'utf-8')
 attach1['Content-Type'] = 'application/octet-stream'
@@ -39,6 +48,13 @@ attach2 = MIMEText(open('smtp_attachment2.txt', 'rb').read(), 'base64', 'utf-8')
 attach2['Content-Type'] = 'application/octet-stream'
 attach2['Content-Disposition'] = 'attachment; filename="zhengxiang.txt"'
 message.attach(attach2)
+
+# 构造附件3，传送当前目录下的 smtp_html_image.jp文件
+attach3 = MIMEApplication(open('smtp_html_image.jpg', 'rb').read())
+attach3['Content-Type'] = 'application/octet-stream'
+# attach3['Content-Disposition'] = 'attachment; filename="qixqi.jpg"'       # filename 不能还有中文
+attach3.add_header('Content-Disposition', 'attachment', filename='我爱qixqi.jpg')   # filename 可以含有中文
+message.attach(attach3)
 
 
 try:
