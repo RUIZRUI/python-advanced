@@ -284,3 +284,9 @@ a = [1, 2, 3]
 b = [4, 5, 6]
 list3 = [[(i, j) for i in a] for j in b]
 print(list3)
+
+
+
+# lambda 表达式
+inc = lambda x: x+1
+print(inc(5))
